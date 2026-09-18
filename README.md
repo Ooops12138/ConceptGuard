@@ -1,6 +1,8 @@
 # Concept Guard
 
-Concept Guard is an explicit Codex Skill for tracking high-confidence design concepts introduced by an agent. It preserves when a potentially durable proposal first enters a project without treating the proposal as an established project fact.
+In multi-turn collaboration, an agent continually introduces new abstractions, concepts, architectural layers, modules, and design terminology. Many suggestions seem reasonable in isolation, but users may fail to fully understand the conversation—either because they lack relevant domain knowledge or because their attention drifts after many turns (yes, humans experience attention lapses too)—and therefore cannot question or adjust the model’s output in time. The model then often assumes that the user has tacitly accepted the earlier suggestions, causing these concepts to gradually become part of the project. Eventually, concepts may accumulate, the architecture may bloat, and the project may drift from its original goal. Moreover, in long dialogue histories, users may find it hard to trace who introduced a given concept, when it was introduced, and what other concepts it later spawned.
+
+Concept Guard is an Codex Skill for tracking high-confidence design concepts introduced by an agent. It preserves when a potentially durable proposal first enters a project without treating the proposal as an established project fact.
 
 It is intentionally small. Version 0.1 uses one project file, `.concept-guard.json`, only when there is a qualifying concept to record.
 
