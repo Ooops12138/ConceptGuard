@@ -63,6 +63,7 @@ If you need to record or update a concept, read `<project-root>/.concept-guard.j
 - Every new agent proposal starts as `proposed`.
 - The recorded concept name must be directly grounded in the agent's wording; do not invent or retrospectively abstract a concept name that the agent did not propose.
 - Change `proposed` to `established` only after the user explicitly accepts that record. Set `established` to `{ "by": "user", "at": "YYYY-MM-DD / short task", "wording": "..." }`.
+- `wording` is provenance evidence, not just a general task summary. It must remain specific to the recorded concept.
 - When an existing record is used again in a later task, append one short `{ "at": "YYYY-MM-DD / short task", "wording": "..." }` entry to `reused_in`. Add at most one entry per concept per task.
 - Set `derived_from` only when the agent explicitly presents the new record as derived from one existing record. It holds one parent id; never infer it, add relation types, or use multiple parents.
 - Never establish, merge, rename, or infer concepts from repetition or assumed agreement.
