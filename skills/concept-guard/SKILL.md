@@ -19,9 +19,7 @@ Record an agent-introduced concept only when **both** conditions hold:
 
 Do not record implementation details merely because they are named or reusable, including functions, variables, flags, prompts, filenames, and one-off choices.
 
-Named classes, models, DTOs, schemas, and query/filter objects qualify only when 
-
-the agent presents them as durable domain concepts or cross-module contracts.
+Named classes, models, DTOs, schemas, and query/filter objects qualify only when the agent presents them as durable domain concepts or cross-module contracts.
 
 Only agent-introduced concepts are eligible. Do not infer concepts retrospectively or create names the agent did not use.
 

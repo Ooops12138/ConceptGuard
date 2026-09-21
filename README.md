@@ -31,7 +31,7 @@ that captures `session_id` and `turn_id` from `UserPromptSubmit` and `Stop`
 events:
 
 ```powershell
-codex plugin install --path . 
+codex plugin install --path .
 ```
 
 If your Codex build does not support local plugin installation, clone or copy
@@ -81,8 +81,8 @@ The first qualifying record creates `<project-root>/.concept-guard.json`:
       "kind": "architecture",
       "status": "proposed",
       "introduced": {
-        "by": "agent",
-        "at": "2026-09-18 / payment failure flow",
+        "session_id": "...",
+        "turn_id": "...",
         "wording": "Introduce a Retry Policy for payment retries."
       },
       "established": null,
