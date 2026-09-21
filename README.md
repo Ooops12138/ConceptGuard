@@ -2,9 +2,7 @@
 
 In multi-turn collaboration, an agent continually introduces new abstractions, concepts, architectural layers, modules, and design terminology. Many suggestions seem reasonable in isolation, but users may fail to fully understand the conversation—either because they lack relevant domain knowledge or because their attention drifts after many turns (Of course humans can be attention lapses too)—and therefore cannot question or adjust the model’s output in time. The model then often assumes that the user has tacitly accepted the earlier suggestions, causing these concepts to gradually become part of the project. Eventually, concepts may accumulate, the architecture may bloat, and the project may drift from its original goal. Moreover, in long dialogue histories, users may find it hard to trace who introduced a given concept, when it was introduced, and what other concepts it later spawned.
 
-Concept Guard is an Codex Skill for tracking high-confidence design concepts introduced by an agent. It preserves when a potentially durable proposal first enters a project without treating the proposal as an established project fact.
-
-It is intentionally small. Version 0.1 uses one project file, `.concept-guard.json`, only when there is a qualifying concept to record.
+Concept Guard is a Codex plugin containing a skill for tracking high-confidence design concepts introduced by an agent. It preserves when a potentially durable proposal first enters a project without treating the proposal as an established project fact.
 
 ## What It Records
 
@@ -16,27 +14,30 @@ New agent proposals always start as `proposed`. They become `established` only a
 
 ## Install
 
-Clone this repository into the local Codex Skills directory as `concept-guard`:
+This repository is a Codex plugin. For local development, create or update a personal marketplace entry whose source points to this repository, then install the plugin:
 
 ```powershell
-git clone https://github.com/Ooops12138/ConceptGuard.git "$env:USERPROFILE\.codex\skills\concept-guard"
+codex plugin marketplace add <path-to-marketplace-root>
+codex plugin add concept-guard@personal
 ```
 
-Restart Codex if it does not discover the new Skill automatically.
-
-### Install as a plugin
-
-This repository is also a Codex plugin. The plugin bundles the skill and a hook
-that captures `session_id` and `turn_id` from `UserPromptSubmit` and `Stop`
-events:
+For a published Git marketplace, add the repository URL instead:
 
 ```powershell
-codex plugin install --path .
+codex plugin marketplace add <owner>/<repo>
+codex plugin add concept-guard@<marketplace-name>
 ```
 
-If your Codex build does not support local plugin installation, clone or copy
-the repository into the local skills directory and use the `SKILL.md` at
-`skills/concept-guard/SKILL.md`.
+Restart Codex or start a new thread after installation so it discovers the
+plugin's skill and hook.
+
+The plugin bundles one skill and its lifecycle hook:
+
+```text
+skills/concept-guard/SKILL.md
+hooks/hooks.json
+hooks/capture_context.py
+```
 
 The hook writes:
 
@@ -45,9 +46,7 @@ The hook writes:
 .codex/concept-guard/turns/<session_id>/<turn_id>.json
 ```
 
-The second path is an immutable-by-convention archive for the turn, while the
-first path is the convenience file used by the skill. These files are project
-runtime state and should normally be added to `.gitignore`:
+The second path is an immutable-by-convention archive for the turn, while the first path is the convenience file used by the skill. These files are project runtime state and should normally be added to `.gitignore`:
 
 ```gitignore
 .codex/concept-guard/

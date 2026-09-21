@@ -1,5 +1,4 @@
 {
-  "description": "Capture Codex session and turn provenance for Concept Guard.",
   "hooks": {
     "UserPromptSubmit": [
       {
