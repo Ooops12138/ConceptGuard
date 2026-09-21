@@ -14,8 +14,8 @@ Record an agent-introduced concept only when **both** conditions hold:
 - The agent presents it as a proposal intended to shape the solution and, if adopted, it would establish or change at least one durable project concern:
 
   - module boundaries, responsibilities, lifecycle, ownership, or a cross-module contract;
-  - a user-facing interaction model or recurring workflow;
-  - domain vocabulary or a stable user-visible behavior contract.
+  - domain vocabulary or a stable user-visible behavior contract;
+  - a user-facing interaction model, recurring workflow, or new user-triggerable mode that can bereused, triggered repeatedly, or change how the operation is performed;
 
 Do not record implementation details merely because they are named or reusable, including functions, variables, flags, prompts, filenames, and one-off choices.
 
