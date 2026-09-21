@@ -1,4 +1,3 @@
-
 ---
 name: concept-guard
 description: Track high-confidence architecture-level and reusable user-facing concept proposals, with concise provenance, when explicitly invoked; exclude ordinary implementation details.
@@ -18,10 +17,10 @@ Record an agent-introduced concept only when **both** conditions hold:
   - a user-facing interaction model or recurring workflow;
   - domain vocabulary or a stable user-visible behavior contract.
 
-Do not record implementation details merely because they are named or reusable,
-including functions, variables, flags, prompts, filenames, and one-off choices.
+Do not record implementation details merely because they are named or reusable, including functions, variables, flags, prompts, filenames, and one-off choices.
 
-Named classes, models, DTOs, schemas, and query/filter objects qualify only when
+Named classes, models, DTOs, schemas, and query/filter objects qualify only when 
+
 the agent presents them as durable domain concepts or cross-module contracts.
 
 Only agent-introduced concepts are eligible. Do not infer concepts retrospectively or create names the agent did not use.
@@ -51,7 +50,11 @@ If you need to record or update a concept, read `<project-root>/.concept-guard.j
       "id": "C-001",
       "name": "...",
       "status": "proposed",
-      "introduced": { "by": "agent", "at": "YYYY-MM-DD / short task", "wording": "..." },
+      "introduced": {
+        "session_id": "...",
+        "turn_id": "...",
+        "wording": "..."
+      },
       "established": null,
       "reused_in": [],
       "derived_from": null
@@ -62,9 +65,10 @@ If you need to record or update a concept, read `<project-root>/.concept-guard.j
 
 - Every new agent proposal starts as `proposed`.
 - The recorded concept name must be directly grounded in the agent's wording; do not invent or retrospectively abstract a concept name that the agent did not propose.
-- Change `proposed` to `established` only after the user explicitly accepts that record. Set `established` to `{ "by": "user", "at": "YYYY-MM-DD / short task", "wording": "..." }`.
+- Change `proposed` to `established` only after the user explicitly accepts that record. Set `established` to `{ "session_id": "...", "turn_id": "...", "wording": "..." }`.
+- When an existing record is used again in a later task, append one short `{ "session_id": "...", "turn_id": "...", "wording": "..." }` entry to `reused_in`. Add at most one entry per concept per task.
+- Use `.codex/concept-guard/current-context.json` for `session_id` and `turn_id`.
 - `wording` is provenance evidence, not just a general task summary. It must remain specific to the recorded concept.
-- When an existing record is used again in a later task, append one short `{ "at": "YYYY-MM-DD / short task", "wording": "..." }` entry to `reused_in`. Add at most one entry per concept per task.
 - Set `derived_from` only when the agent explicitly presents the new record as derived from one existing record. It holds one parent id; never infer it, add relation types, or use multiple parents.
 - Never establish, merge, rename, or infer concepts from repetition or assumed agreement.
 

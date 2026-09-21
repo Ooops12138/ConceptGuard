@@ -1,0 +1,32 @@
+# Codex and plugin runtime state
+.codex/
+.concept-guard.json
+
+# Local Codex metadata from the previous skill layout
+agents/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local environment and editor files
+.venv/
+venv/
+env/
+.env
+.env.*
+.idea/
+.vscode/
+
+# Local experiment outputs and generated copies
+归档/
+plan/
+runners/
+expense-analyzer-bass/
+
+# OS files
+.DS_Store
+Thumbs.db

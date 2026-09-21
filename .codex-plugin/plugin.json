@@ -1,0 +1,32 @@
+{
+  "name": "concept-guard",
+  "version": "0.2.0",
+  "description": "Track durable agent-introduced concepts with session and turn provenance.",
+  "author": {
+    "name": "Concept Guard contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "hooks",
+    "provenance",
+    "architecture",
+    "concepts"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Concept Guard",
+    "shortDescription": "Track durable concepts with provenance",
+    "longDescription": "A Codex skill and hook that records qualifying agent-introduced concepts and attaches session_id plus turn_id provenance.",
+    "developerName": "Concept Guard contributors",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Write"
+    ],
+    "defaultPrompt": [
+      "$concept-guard Review this task for durable concepts.",
+      "$concept-guard Implement this feature and track architecture proposals."
+    ],
+    "brandColor": "#0F766E"
+  }
+}

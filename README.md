@@ -24,6 +24,36 @@ git clone https://github.com/Ooops12138/ConceptGuard.git "$env:USERPROFILE\.code
 
 Restart Codex if it does not discover the new Skill automatically.
 
+### Install as a plugin
+
+This repository is also a Codex plugin. The plugin bundles the skill and a hook
+that captures `session_id` and `turn_id` from `UserPromptSubmit` and `Stop`
+events:
+
+```powershell
+codex plugin install --path . 
+```
+
+If your Codex build does not support local plugin installation, clone or copy
+the repository into the local skills directory and use the `SKILL.md` at
+`skills/concept-guard/SKILL.md`.
+
+The hook writes:
+
+```text
+.codex/concept-guard/current-context.json
+.codex/concept-guard/turns/<session_id>/<turn_id>.json
+```
+
+The second path is an immutable-by-convention archive for the turn, while the
+first path is the convenience file used by the skill. These files are project
+runtime state and should normally be added to `.gitignore`:
+
+```gitignore
+.codex/concept-guard/
+.concept-guard.json
+```
+
 ## Use
 
 Invoke it explicitly at the start of work you want to supervise:
@@ -65,10 +95,17 @@ The first qualifying record creates `<project-root>/.concept-guard.json`:
 
 Concept Guard does not copy chat transcripts. The short `wording` fields preserve only the original proposal, explicit acceptance, or later-use reference needed for tracing.
 
-## Non-Goals
+## Hook contract
 
-Version 0.1 does not judge whether a design is overengineered. It does not use hooks, scripts, MCP, databases, external services, vector search, multi-agent workflows, or automatic evidence-based promotion to `established`.
+The hook does not infer or generate IDs. It reads the JSON event from stdin and
+persists the IDs supplied by Codex. `turn_id` is available on turn-scoped hook
+events; if an event does not contain it, the hook still writes the current
+context but skips the turn archive.
+
+Concept Guard does not judge whether a design is overengineered. It does not
+use external services, databases, vector search, or automatic evidence-based
+promotion to `established`.
 
 ## License
 
-No license has been selected yet.
+MIT. See [LICENSE](LICENSE).

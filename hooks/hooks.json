@@ -1,0 +1,27 @@
+{
+  "description": "Capture Codex session and turn provenance for Concept Guard.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${PLUGIN_ROOT}/hooks/capture_context.py\"",
+            "commandWindows": "python \"${PLUGIN_ROOT}/hooks/capture_context.py\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${PLUGIN_ROOT}/hooks/capture_context.py\"",
+            "commandWindows": "python \"${PLUGIN_ROOT}/hooks/capture_context.py\""
+          }
+        ]
+      }
+    ]
+  }
+}
