@@ -14,22 +14,33 @@ New agent proposals always start as `proposed`. They become `established` only a
 
 ## Install
 
-This repository is a Codex plugin. For local development, create or update a personal marketplace entry whose source points to this repository, then install the plugin:
+### For Users
+
+Install Concept Guard from its GitHub marketplace repository:
 
 ```powershell
-codex plugin marketplace add <path-to-marketplace-root>
+codex plugin marketplace add Ooops12138/ConceptGuard
+codex plugin add concept-guard@concept-guard
+```
+
+The first command adds this GitHub repository as the `concept-guard`
+marketplace. The second command installs the `concept-guard` plugin from that
+marketplace.
+
+### For Local Development
+
+When editing this plugin locally, use the personal marketplace entry that points
+to the local plugin source:
+
+```powershell
 codex plugin add concept-guard@personal
 ```
 
-For a published Git marketplace, add the repository URL instead:
+In the current local setup, that entry points to
+`%USERPROFILE%\plugins\concept-guard`.
 
-```powershell
-codex plugin marketplace add <owner>/<repo>
-codex plugin add concept-guard@<marketplace-name>
-```
-
-Restart Codex or start a new thread after installation so it discovers the
-plugin's skill and hook.
+After either installation path, restart Codex or start a new thread so it
+discovers the plugin's skill and hook.
 
 The plugin bundles one skill and its lifecycle hook:
 
@@ -100,6 +111,14 @@ The hook does not infer or generate IDs. It reads the JSON event from stdin and
 persists the IDs supplied by Codex. `turn_id` is available on turn-scoped hook
 events; if an event does not contain it, the hook still writes the current
 context but skips the turn archive.
+
+For diagnostics, the hook also appends one line per invocation to
+`.codex/concept-guard/hook.log`. Each line includes the hook event name, the
+resolved `cwd`, and the supplied IDs. Invalid input or a write failure is
+reported on stderr and returns a nonzero exit code, so a missing
+`current-context.json` is no longer silently treated as success. The file is
+always written under the event's `cwd`; inspect `hook.log` there first when
+debugging a missing context file.
 
 Concept Guard does not judge whether a design is overengineered. It does not
 use external services, databases, vector search, or automatic evidence-based

@@ -30,6 +30,7 @@ class CaptureContextTests(unittest.TestCase):
             self.assertEqual(current["session_id"], "session-1")
             self.assertEqual(current["turn_id"], "turn-2")
             self.assertEqual(archived, current)
+            self.assertIn("hook=UserPromptSubmit", (root / "hook.log").read_text())
 
     def test_stop_emits_continue(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -41,6 +42,14 @@ class CaptureContextTests(unittest.TestCase):
             }
             with patch("sys.stdin", __import__("io").StringIO(json.dumps(event))):
                 self.assertEqual(main(), 0)
+
+    def test_invalid_event_returns_failure(self):
+        with patch("sys.stdin", __import__("io").StringIO("{}")):
+            self.assertEqual(main(), 1)
+
+    def test_non_object_event_returns_failure(self):
+        with patch("sys.stdin", __import__("io").StringIO("[]")):
+            self.assertEqual(main(), 1)
 
 
 if __name__ == "__main__":

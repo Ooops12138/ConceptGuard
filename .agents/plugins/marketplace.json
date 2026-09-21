@@ -1,0 +1,20 @@
+{
+  "name": "concept-guard",
+  "interface": {
+    "displayName": "Concept Guard"
+  },
+  "plugins": [
+    {
+      "name": "concept-guard",
+      "source": {
+        "source": "local",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}
